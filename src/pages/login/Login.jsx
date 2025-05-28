@@ -16,7 +16,7 @@ const response = await axios.post(`mytshop.runasp.net/api/Account/Login`,values)
 console.log(response);
   }
   return (
-    <Box component={'form'} className={style.formContainer} onSubmit={handleSubmit(loginUser)}>
+    <Box component={'form'} className={`${style.generalStyle}` } onSubmit={handleSubmit(loginUser)}>
    
        
         <TextField

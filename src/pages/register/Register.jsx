@@ -16,7 +16,8 @@ const response = await axios.post(`http://mytshop.runasp.net/api/Account/registe
 console.log(response);
   }
   return (
-    <Box component={'form'} className={style.formContainer} onSubmit={handleSubmit(registerUser)}>
+    <Box component={'form'} className={style.generalStyle}
+     onSubmit={handleSubmit(registerUser)}>
     <TextField
     {...register("firstName")}
      type='text'
