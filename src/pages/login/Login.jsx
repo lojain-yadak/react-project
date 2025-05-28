@@ -1,8 +1,57 @@
 import React from 'react'
+import {TextField,InputAdornment,Box, Button} from '@mui/material'
+import style from './login.module.css'
+import {AccountCircle} from '@mui/icons-material';
+import {AlternateEmail} from '@mui/icons-material';
+import {Password} from '@mui/icons-material';
+import {CalendarMonth} from '@mui/icons-material';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 function Login() {
+  const {register,handleSubmit} = useForm();
+
+  const loginUser= async (values)=>{
+const response = await axios.post(`mytshop.runasp.net/api/Account/Login`,values);
+console.log(response);
+  }
   return (
-    <div>Login</div>
+    <Box component={'form'} className={style.formContainer} onSubmit={handleSubmit(loginUser)}>
+   
+       
+        <TextField
+        {...register("email")}
+         type='email'
+          label="User Email"
+          id="outlined-start-adornment"
+          sx={{ m: 1 }}
+          fullWidth
+          slotProps={{
+            input: {
+              startAdornment: <InputAdornment position="start">
+                <AlternateEmail />
+              </InputAdornment>,
+            },
+          }}
+        />
+        <TextField
+        {...register("password")}
+         type='password'
+          label="User Password"
+          id="outlined-start-adornment"
+          sx={{ m: 1 }}
+          fullWidth
+          slotProps={{
+            input: {
+              startAdornment: <InputAdornment position="start">
+                <Password />
+              </InputAdornment>,
+            },
+          }}
+        />
+        
+        <Button type='submit' variant='outlined'>Login</Button>
+        </Box>
   )
 }
 
