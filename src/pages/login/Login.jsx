@@ -7,6 +7,7 @@ import {Password} from '@mui/icons-material';
 import {CalendarMonth} from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const {register,handleSubmit} = useForm();
@@ -49,6 +50,11 @@ console.log(response);
             },
           }}
         />
+        <Button 
+         fullWidth
+         component={Link}
+         to={'/forgetpassword'}
+         >Forget Password?</Button>
         
         <Button type='submit' variant='outlined'>Login</Button>
         </Box>
