@@ -6,12 +6,12 @@ import {
   Typography,
   CircularProgress,
 } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 function VerifyCode() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, control, formState: { errors } } = useForm();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
   const navigate = useNavigate();
@@ -26,6 +26,8 @@ function VerifyCode() {
   }, [email, navigate]);
 
   const onSubmit = async (data) => {
+    console.log("Form Data:", data); // Debug log
+
     setLoading(true);
     setError('');
 
@@ -35,18 +37,20 @@ function VerifyCode() {
         {
           email,
           code: data.code,
+          password: data.password,
+          ConfirmPassword: data.confirmPassword,
         }
       );
 
       console.log('Server Response:', response);
 
       if (response.status === 200) {
-        navigate('/reset-password'); // ✅ Only redirect if server says OK
+        navigate('/login'); // Redirect to login after successful reset
       }
 
     } catch (err) {
       console.error('Verification failed:', err.response?.data || err.message);
-      setError('Invalid or expired code. Please try again.');
+      setError(err.response?.data?.message || 'Failed to verify code or reset password.');
     } finally {
       setLoading(false);
     }
@@ -62,6 +66,7 @@ function VerifyCode() {
         Enter Verification Code
       </Typography>
 
+      {/* Verification Code Field */}
       <TextField
         {...register('code', {
           required: 'Verification code is required',
@@ -83,6 +88,44 @@ function VerifyCode() {
         margin="normal"
         error={!!errors.code}
         helperText={errors.code?.message}
+      />
+
+      {/* New Password Field */}
+      <TextField
+        {...register('password', {
+          required: 'New password is required',
+          minLength: {
+            value: 8,
+            message: 'Password must be at least 8 characters long',
+          },
+        })}
+        type="password"
+        label="New Password"
+        fullWidth
+        margin="normal"
+        error={!!errors.password}
+        helperText={errors.password?.message}
+      />
+
+      {/* Confirm Password Field using Controller */}
+      <Controller
+        name="confirmPassword"
+        control={control}
+        rules={{
+          required: 'Confirm password is required',
+          validate: (value) => value === watch('password') || 'Passwords do not match',
+        }}
+        render={({ field }) => (
+          <TextField
+            {...field}
+            type="password"
+            label="Confirm Password"
+            fullWidth
+            margin="normal"
+            error={!!errors.confirmPassword}
+            helperText={errors.confirmPassword?.message}
+          />
+        )}
       />
 
       {error && (
