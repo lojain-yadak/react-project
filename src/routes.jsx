@@ -9,6 +9,7 @@ import MainLayout from "./layout/MainLayout";
 import VerifyCode from './component/verifycode/VerifyCode';
 import ResetPassword from './component/resetpassword/ResetPassword';
 import Forgetpassword from "./component/forgetpassword/Forgetpassword";
+import Product from './pages/product/Product';
 
 const routes = createBrowserRouter([
   {
@@ -19,6 +20,11 @@ const routes = createBrowserRouter([
       {
         index: true,
         element: <Home />
+      },
+      
+      {
+        path: 'product/:id',
+        element: <Product />
       },
       {
         path: 'shop',

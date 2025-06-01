@@ -7,19 +7,24 @@ import {Password} from '@mui/icons-material';
 import {CalendarMonth} from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import Swal from './../../../node_modules/sweetalert2/src/sweetalert2';
+
 
 function Login() {
   const {register,handleSubmit} = useForm();
 
   const loginUser= async (values)=>{
-const response = await axios.post(`mytshop.runasp.net/api/Account/Login`,values);
+const response = await axios.post(`http://mytshop.runasp.net/api/Account/Login`, values);
+localStorage.setItem("userToken",response.data.token)
 console.log(response);
   }
   return (
-    <Box component={'form'} className={`${style.generalStyle}` } onSubmit={handleSubmit(loginUser)}>
-   
-       
+    <Box component={'form'} className={style.generalStyle}
+     onSubmit={handleSubmit(loginUser)}>
+    
+      
+        
         <TextField
         {...register("email")}
          type='email'
@@ -50,12 +55,8 @@ console.log(response);
             },
           }}
         />
-        <Button 
-         fullWidth
-         component={Link}
-         to={'/forgetpassword'}
-         >Forget Password?</Button>
-        
+       
+       
         <Button type='submit' variant='outlined'>Login</Button>
         </Box>
   )

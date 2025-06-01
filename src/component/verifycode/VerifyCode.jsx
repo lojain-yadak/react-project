@@ -9,6 +9,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from './../../../node_modules/sweetalert2/src/sweetalert2';
 
 function VerifyCode() {
   const { register, handleSubmit, watch, control, formState: { errors } } = useForm();
@@ -26,35 +27,42 @@ function VerifyCode() {
   }, [email, navigate]);
 
   const onSubmit = async (data) => {
-    console.log("Form Data:", data); // Debug log
+  console.log("Form Data:", data);
 
-    setLoading(true);
-    setError('');
+  setLoading(true);
+  setError('');
 
-    try {
-      const response = await axios.patch(
-        'http://mytshop.runasp.net/api/Account/SendCode',
-        {
-          email,
-          code: data.code,
-          password: data.password,
-          ConfirmPassword: data.confirmPassword,
-        }
-      );
-
-      console.log('Server Response:', response);
-
-      if (response.status === 200) {
-        navigate('/login'); // Redirect to login after successful reset
+  try {
+    const response = await axios.patch(
+      'http://mytshop.runasp.net/api/Account/SendCode',
+      {
+        email,
+        code: data.code,
+        password: data.password,
+        ConfirmPassword: data.confirmPassword,
       }
+    );
 
-    } catch (err) {
-      console.error('Verification failed:', err.response?.data || err.message);
-      setError(err.response?.data?.message || 'Failed to verify code or reset password.');
-    } finally {
-      setLoading(false);
+    console.log('Server Response:', response);
+
+    if (response.status === 200) {
+      Swal.fire({
+        title: 'Success!',
+        text: 'Your password has been successfully changed.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        navigate('/login');
+      });
     }
-  };
+
+  } catch (err) {
+    console.error('Verification failed:', err.response?.data || err.message);
+    setError(err.response?.data?.message || 'Failed to verify code or reset password.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <Box
@@ -66,7 +74,7 @@ function VerifyCode() {
         Enter Verification Code
       </Typography>
 
-      {/* Verification Code Field */}
+     
       <TextField
         {...register('code', {
           required: 'Verification code is required',
@@ -90,7 +98,7 @@ function VerifyCode() {
         helperText={errors.code?.message}
       />
 
-      {/* New Password Field */}
+     
       <TextField
         {...register('password', {
           required: 'New password is required',
@@ -107,7 +115,7 @@ function VerifyCode() {
         helperText={errors.password?.message}
       />
 
-      {/* Confirm Password Field using Controller */}
+      
       <Controller
         name="confirmPassword"
         control={control}
