@@ -21,7 +21,10 @@ const routes = createBrowserRouter([
         index: true,
         element: <Home />
       },
-      
+       {
+        path: 'home/',
+        element: <Home />
+      },
       {
         path: 'product/:id',
         element: <Product />

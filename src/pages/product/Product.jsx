@@ -64,8 +64,8 @@ console.log(response);
         <CardMedia
           component="img"
           height="140"
-          image={product.mainImg}
-          alt={product.description || 'Product image'}
+          image={`${product.mainImg}`}
+          alt={`${product.description}`|| 'Product image'}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

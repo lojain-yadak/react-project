@@ -84,7 +84,7 @@ const clearCart = async () => {
 
   try {
     await axios.delete(
-      `http://mytshop.runasp.net/api/Carts/clear`, // Adjust URL based on your API
+      `http://mytshop.runasp.net/api/Carts/clearCart`, // Adjust URL based on your API
       {
         headers: {
           Authorization: `Bearer ${token}`
