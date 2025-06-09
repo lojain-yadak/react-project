@@ -5,11 +5,11 @@ import Shop from "./pages/shop/Shop";
 import Cart from "./pages/cart/Cart";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import MainLayout from "./layout/MainLayout";
 import VerifyCode from './component/verifycode/VerifyCode';
 import ResetPassword from './component/resetpassword/ResetPassword';
 import Forgetpassword from "./component/forgetpassword/Forgetpassword";
 import Product from './pages/product/Product';
+import MainLayout from "./layout/MainLayout";
 
 const routes = createBrowserRouter([
   {
