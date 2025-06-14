@@ -10,6 +10,7 @@ import ResetPassword from './component/resetpassword/ResetPassword';
 import Forgetpassword from "./component/forgetpassword/Forgetpassword";
 import Product from './pages/product/Product';
 import MainLayout from "./layout/MainLayout";
+import Checkout from "./pages/checkout/Checkout";
 
 const routes = createBrowserRouter([
   {
@@ -26,35 +27,38 @@ const routes = createBrowserRouter([
         element: <Home />
       },
       {
-        path: 'product/:id',
+        path: '/product/:id',
         element: <Product />
       },
       {
-        path: 'shop',
+        path: '/shop',
         element: <Shop />
+      },{
+        path: '/checkout',
+        element: <Checkout />
       },
       {
-        path: 'cart',
+        path: '/cart',
         element: <Cart />
       },
       {
-        path: 'login',
+        path: '/login',
         element: <Login />
       },
       {
-        path: 'register',
+        path: '/register',
         element: <Register />
       },
       {
-        path: 'forgetpassword',
+        path: '/forgetpassword',
         element: <Forgetpassword />
       },
       {
-        path: 'verify-code',
+        path: '/verify-code',
         element: <VerifyCode />
       },
       {
-        path: 'reset-password',
+        path: '/reset-password',
         element: <ResetPassword />
       }
     ]

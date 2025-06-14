@@ -13,13 +13,15 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
-const pages = ['Home','Login', 'Register','Cart'];
+import { Navigate } from 'react-router';
+const pagesGuest = ['Login', 'Register'];
+const pagesAuth = ['Cart','Home'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const isLogedIn=Boolean(localStorage.getItem("userToken"));
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -31,7 +33,10 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const handleLogout =()=>{
+    localStorage.removeItem("userToken");
+    Navigate('/login');
+  }
   return (
     <AppBar position="static" sx={{ backgroundColor: '#4FC4CA'}}>
       <Container maxWidth="xl">
@@ -82,7 +87,7 @@ function Navbar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
+              {(isLogedIn ? pagesAuth :pagesGuest).map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu} 
                   component={Link}
                   to={`${page}`}
@@ -117,7 +122,7 @@ function Navbar() {
 
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },justifyContent:'center', alignItems:"center" }}>
-            {pages.map((page) => (
+            {(isLogedIn ? pagesAuth :pagesGuest).map((page) => (
               <Button
                 key={page}
                 component={Link}
@@ -129,6 +134,9 @@ function Navbar() {
                 {page}
               </Button>
             ))}
+            {isLogedIn?(
+              <Button onClick={handleLogout} sx={{ my: 2, color: 'black', display: 'block' }}> Logout </Button>
+            ):null}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             

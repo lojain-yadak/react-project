@@ -7,17 +7,18 @@ import {Password} from '@mui/icons-material';
 import {CalendarMonth} from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Swal from './../../../node_modules/sweetalert2/src/sweetalert2';
 
 
 function Login() {
   const {register,handleSubmit} = useForm();
-
+  const navigate = useNavigate();
   const loginUser= async (values)=>{
 const response = await axios.post(`http://mytshop.runasp.net/api/Account/Login`, values);
 localStorage.setItem("userToken",response.data.token)
 console.log(response);
+navigate('/home')
   }
   return (
     <Box component={'form'} className={style.generalStyle}

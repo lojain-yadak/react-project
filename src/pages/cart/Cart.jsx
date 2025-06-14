@@ -3,11 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Box, Grid, Typography, CardMedia, Paper, Card, CardContent, IconButton, Button } from '@mui/material';
 import { Add, Delete, Remove } from '@mui/icons-material';
 import Loader from '../../component/shared/loder/Loader';
+import { Link } from 'react-router';
 
 function Cart() {
   const [products, setProducts] = useState([]);
   const [loader, setLoader] = useState(true);
-
+  const [totalPrice, setTotalPrice ] = useState(0);
+  const [totalItemes, setTotalItems ] = useState(0);
+  let test=0;
   const getProductFromCart = async () => {
     const token = localStorage.getItem("userToken");
 
@@ -20,6 +23,11 @@ function Cart() {
 
       console.log(response);
       setProducts(response.data?.cartResponse || []);
+      setTotalPrice(response.data.totalPrice);
+      response.data.cartResponse.forEach((product)=>{
+        test = test +product.count;
+      });
+      setTotalItems(test)
       setLoader(false);
 
     } catch (error) {
@@ -130,7 +138,7 @@ const clearCart = async () => {
               <Card key={product.id} sx={{ textAlign: 'center', p: 2, mb: 2, display: 'flex' }}>
                 <CardMedia
                   component={'img'}
-                  image='https://placehold.co/50' 
+                  image='https://placehold.co/10' 
                   alt={product.name}
                   sx={{ borderRadius: 2 }}
                 />
@@ -149,7 +157,16 @@ const clearCart = async () => {
           )}
         </Grid>
         <Grid item xs={12} md={4}>
-          <Typography>Summary</Typography>
+          <Typography>Order Summary</Typography>
+          <Card sx={{p:2}}>
+            <Typography>
+            Total items: {totalItemes}
+          </Typography>
+          <Typography>
+            Total Price: {totalPrice}$
+          </Typography>
+          </Card>
+          <Button variant='contained' fullWidth component={Link} to='/checkout'> Press To Checkout </Button>
         </Grid>
       </Grid>
     </Box>
