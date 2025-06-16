@@ -15,7 +15,7 @@ function Cart() {
     const token = localStorage.getItem("userToken");
 
     try {
-      const response = await axios.get(`http://mytshop.runasp.net/api/Carts`, {
+      const response = await axios.get(`https://mytshop.runasp.net/api/Carts`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -38,7 +38,7 @@ function Cart() {
   };
 const increaseQty= async (id)=>{
   const token = localStorage.getItem("userToken");
-  const response = await axios.patch(`http://mytshop.runasp.net/api/Carts/increaseCount/${id}`, {}, {
+  const response = await axios.patch(`https://mytshop.runasp.net/api/Carts/increaseCount/${id}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -54,7 +54,7 @@ const increaseQty= async (id)=>{
 }
 const decreaseQty= async (id)=>{
   const token = localStorage.getItem("userToken");
-  const response = await axios.patch(`http://mytshop.runasp.net/api/Carts/decreaseCount/${id}`, {}, {
+  const response = await axios.patch(`https://mytshop.runasp.net/api/Carts/decreaseCount/${id}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -74,7 +74,7 @@ const deleteItem = async (id) => {
   const token = localStorage.getItem("userToken");
 
   try {
-    await axios.delete(`http://mytshop.runasp.net/api/Carts/${id}`, {
+    await axios.delete(`https://mytshop.runasp.net/api/Carts/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -92,7 +92,7 @@ const clearCart = async () => {
 
   try {
     await axios.delete(
-      `http://mytshop.runasp.net/api/Carts/clearCart`, 
+      `https://mytshop.runasp.net/api/Carts/clearCart`, 
       {
         headers: {
           Authorization: `Bearer ${token}`

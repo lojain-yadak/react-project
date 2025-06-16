@@ -13,7 +13,7 @@ import { Link } from 'react-router';
 function Products() {
   const [products,setProducts] = useState([]);
   const getProducts = async ()=>{
-  const response = await axios.get(`http://mytshop.runasp.net/api/products`);
+  const response = await axios.get(`https://mytshop.runasp.net/api/products`);
   setProducts(response.data);
 
   }

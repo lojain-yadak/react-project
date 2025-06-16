@@ -11,6 +11,7 @@ import Forgetpassword from "./component/forgetpassword/Forgetpassword";
 import Product from './pages/product/Product';
 import MainLayout from "./layout/MainLayout";
 import Checkout from "./pages/checkout/Checkout";
+import ProtectedRouter from './component/protectedrouter/ProtectedRouter';
 
 const routes = createBrowserRouter([
   {
@@ -35,11 +36,18 @@ const routes = createBrowserRouter([
         element: <Shop />
       },{
         path: '/checkout',
-        element: <Checkout />
+        element:
+        <ProtectedRouter>
+          <Checkout />
+        </ProtectedRouter>
       },
-      {
+      { 
         path: '/cart',
-        element: <Cart />
+        element:
+        <ProtectedRouter>
+          <Cart />
+        </ProtectedRouter>
+         
       },
       {
         path: '/login',

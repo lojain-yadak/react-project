@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
-import { Navigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 const pagesGuest = ['Login', 'Register'];
 const pagesAuth = ['Cart','Home'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -21,6 +21,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
   const isLogedIn=Boolean(localStorage.getItem("userToken"));
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -33,9 +34,9 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handleLogout =()=>{
+  const handleLogout = ()=>{
     localStorage.removeItem("userToken");
-    Navigate('/login');
+    navigate('/login');
   }
   return (
     <AppBar position="static" sx={{ backgroundColor: '#4FC4CA'}}>
@@ -134,7 +135,7 @@ function Navbar() {
                 {page}
               </Button>
             ))}
-            {isLogedIn?(
+            {isLogedIn? (
               <Button onClick={handleLogout} sx={{ my: 2, color: 'black', display: 'block' }}> Logout </Button>
             ):null}
           </Box>

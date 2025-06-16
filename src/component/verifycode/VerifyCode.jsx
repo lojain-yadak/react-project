@@ -34,7 +34,7 @@ function VerifyCode() {
 
   try {
     const response = await axios.patch(
-      'http://mytshop.runasp.net/api/Account/SendCode',
+      'https://mytshop.runasp.net/api/Account/SendCode',
       {
         email,
         code: data.code,

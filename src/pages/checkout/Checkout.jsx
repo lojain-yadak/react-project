@@ -16,7 +16,7 @@ function Checkout() {
     try {
       const token = localStorage.getItem("userToken");
       const response = await axios.post(
-        `http://mytshop.runasp.net/api/CheckOuts/Pay`,
+        `https://mytshop.runasp.net/api/CheckOuts/Pay`,
         {
           PaymentMethod: paymentmethod,
         },

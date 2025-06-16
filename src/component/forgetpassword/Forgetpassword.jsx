@@ -26,7 +26,7 @@ function Forgetpassword() {
 
     try {
       const response = await axios.post(
-        'http://mytshop.runasp.net/api/Account/ForgotPassword',
+        'https://mytshop.runasp.net/api/Account/ForgotPassword',
         {
           email: data.email,
         }

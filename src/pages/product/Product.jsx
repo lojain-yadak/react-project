@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
+import { Bounce, toast } from 'react-toastify';
 
 function Product() {
   const { id } = useParams();
@@ -18,7 +19,7 @@ function Product() {
 
   const getProduct = async () => {
     try {
-      const response = await axios.get(`http://mytshop.runasp.net/api/products/${id}`);
+      const response = await axios.get(`https://mytshop.runasp.net/api/products/${id}`);
       setProduct(response.data);
     } catch (err) {
       setError('Failed to fetch product details.');
@@ -30,7 +31,7 @@ function Product() {
 
 const addToCart=async (id)=>{
     const userToken = localStorage.getItem("userToken");
-    const response = await axios.post(`http://mytshop.runasp.net/api/Carts/${id}`, {},
+    try{const response = await axios.post(`https://mytshop.runasp.net/api/Carts/${id}`, {},
         {
             headers:{
                 AUTHORIZATION:`Bearer ${userToken}`
@@ -39,6 +40,33 @@ const addToCart=async (id)=>{
 
     );
 console.log(response);
+ toast.success('added successfully', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+
+}catch{
+   toast.error('added unsuccessfully', {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+  
+}
+    
 };
 
   
