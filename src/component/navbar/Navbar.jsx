@@ -14,11 +14,16 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import { Navigate, useNavigate } from 'react-router';
+import { CartContext } from '../../context/CartContext';
+import { ThemeContext } from '../../context/ThemeContext';
+import { DarkMode, LightMode } from '@mui/icons-material';
 const pagesGuest = ['Login', 'Register'];
 const pagesAuth = ['Cart','Home'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
+  const {cartItems} = React.useContext(CartContext);
+  const {mode,toggleTheme} = React.useContext(ThemeContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
@@ -132,7 +137,7 @@ function Navbar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
-                {page}
+                {page == 'Cart' ? `Cart(${cartItems})`:page}
               </Button>
             ))}
             {isLogedIn? (
@@ -140,7 +145,15 @@ function Navbar() {
             ):null}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            
+            <IconButton onClick={toggleTheme}>
+              {mode == 'light' ? <DarkMode /> : <LightMode />}
+              
+            </IconButton>
+            <Tooltip>
+              <IconButton onClick={handleOpenNavMenu} sx={{p:0}} >
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

@@ -4,6 +4,7 @@ import { Box, Grid, Typography, CardMedia, Paper, Card, CardContent, IconButton,
 import { Add, Delete, Remove } from '@mui/icons-material';
 import Loader from '../../component/shared/loder/Loader';
 import { Link } from 'react-router';
+import axiosAuth from '../../api/AxiosAutontication';
 
 function Cart() {
   const [products, setProducts] = useState([]);
@@ -12,14 +13,8 @@ function Cart() {
   const [totalItemes, setTotalItems ] = useState(0);
   let test=0;
   const getProductFromCart = async () => {
-    const token = localStorage.getItem("userToken");
-
-    try {
-      const response = await axios.get(`https://mytshop.runasp.net/api/Carts`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+    try{
+    const response = await axiosAuth.get(`/Carts`);
 
       console.log(response);
       setProducts(response.data?.cartResponse || []);

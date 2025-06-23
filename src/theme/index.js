@@ -2,11 +2,14 @@ import {createTheme} from "@mui/material";
 
 
 
-const theme =  createTheme({
+const theme = (mod)=> createTheme({
     typography:{
         button:{
-            fontsize:'40px'
+            fontSize:'20px'
         }
+    },
+    palette:{
+        mode:mod,
     }
 })
 export default theme;

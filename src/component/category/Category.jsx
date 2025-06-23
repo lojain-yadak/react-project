@@ -10,30 +10,10 @@ import axios from 'axios';
 import { Grid, Container } from '@mui/material';
 import style from './category.module.css';
 import Loader from '../shared/loder/Loader';
+import useFetch from '../../hooks/useFetch';
 
 function Category() {
-  const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const getCategories = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`https://mytshop.runasp.net/api/categories`); 
-      setCategories(response.data);
-      setError(null); // reset error if any
-    } catch (err) {
-      setError(err.response?.status || 'Something went wrong');
-      console.error('Fetch error:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
-
+ const {error,data:categories,isLoading}= useFetch(`https://mytshop.runasp.net/api/categories`);
   if (isLoading) {
     return <Loader />;
   }

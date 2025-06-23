@@ -10,16 +10,12 @@ import axios from 'axios';
 import { Grid, Container } from '@mui/material';
 import style from './products.module.css'
 import { Link } from 'react-router';
+import Loader from '../shared/loder/Loader';
+import useFetch from '../../hooks/useFetch';
 function Products() {
-  const [products,setProducts] = useState([]);
-  const getProducts = async ()=>{
-  const response = await axios.get(`https://mytshop.runasp.net/api/products`);
-  setProducts(response.data);
-
-  }
-  useEffect(()=>{
-    getProducts();
-  },[])
+   const {error,data:products,isLoading}= useFetch(`https://mytshop.runasp.net/api/products`);
+  if(error) return <p>{error.message}</p> ;
+  if(isLoading) return <Loader />;
   
    
   return (

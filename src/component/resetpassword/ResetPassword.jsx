@@ -14,7 +14,7 @@ export default function ResetPassword() {
 
   const onSubmit = (data) => {
     console.log('New password:', data.newPassword);
-    // TODO: Send to backend API
+    
   };
 
   return (

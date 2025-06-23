@@ -3,13 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import {ThemeProvider} from '@emotion/react'
-import CssBaseline from '@mui/material/CssBaseline';
-import theme from './theme/index.js'
 import { ToastContainer, toast } from 'react-toastify';
+import ThemeContextProvider from './context/ThemeContext.jsx'
 createRoot(document.getElementById('root')).render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
+  <>
+   <ThemeContextProvider >
     <App />
     <ToastContainer />
-  </ThemeProvider>,
+  </ThemeContextProvider>
+  </>
+ 
 )

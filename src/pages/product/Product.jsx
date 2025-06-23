@@ -10,8 +10,10 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { Bounce, toast } from 'react-toastify';
+import { CartContext } from '../../context/CartContext';
 
 function Product() {
+    const {cartItems,setCartItems} = React.useContext(CartContext);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -39,6 +41,7 @@ const addToCart=async (id)=>{
         }
 
     );
+    setCartItems(cartItems+1);
 console.log(response);
  toast.success('added successfully', {
         position: "bottom-center",
