@@ -5,35 +5,32 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Grid, Container } from '@mui/material';
 import style from './category.module.css';
 import Loader from '../shared/loder/Loader';
-import useFetch from '../../hooks/useFetch';
+import { useQuery } from '@tanstack/react-query';
 
 function Category() {
- const {error,data:categories,isLoading}= useFetch(`https://mytshop.runasp.net/api/categories`);
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return (
-      <Container>
-        <Typography variant="h5" color="error">
-          Failed to load categories: {error}
-        </Typography>
-        <Button onClick={getCategories} variant="contained" color="primary">
-          Retry
-        </Button>
-      </Container>
-    );
-  }
-
+ const fetchCategories = async ()=>{
+  const {data} = await axios.get(`https://mytshop.runasp.net/api/categories`);
+  return data;
+ }
+ const {data,isLoading,error,isError}= useQuery({
+  queryKey: ['categories'],
+  queryFn: fetchCategories,
+  staleTime:6*60*60*1000,
+  refetchOnWindowFocus:false,
+ });
+ if(isError) return <p>error is: {error.message}</p>;
+ if(isLoading) return <Loader />;
   return (
+    <>
+    <Typography>
+      CATEGORIES
+    </Typography>
     <Grid container spacing={4} className={`${style.section}`}>
-      {categories.map((category) => (
+      {data.map((category) => (
         <Grid item size={{ xs: 12, md: 4, sm: 6, lg: 4, xl: 3 }} key={category.id}>
           <Card sx={{ maxWidth: 345 }}>
             <CardMedia
@@ -57,6 +54,7 @@ function Category() {
         </Grid>
       ))}
     </Grid>
+    </>
   );
 }
 

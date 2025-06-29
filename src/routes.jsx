@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, createHashRouter } from "react-router-dom";
 import Errorpage from "./pages/error/Errorpage";
 import Home from './pages/home/Home';
 import Shop from "./pages/shop/Shop";
@@ -13,7 +13,8 @@ import MainLayout from "./layout/MainLayout";
 import Checkout from "./pages/checkout/Checkout";
 import ProtectedRouter from './component/protectedrouter/ProtectedRouter';
 
-const routes = createBrowserRouter([
+
+const routes = createHashRouter([
   {
     path: '/',
     element: <MainLayout />,
@@ -29,7 +30,8 @@ const routes = createBrowserRouter([
       },
       {
         path: '/product/:id',
-        element: <Product />
+        element: <Product />,
+        viewTransition:true
       },
       {
         path: '/shop',

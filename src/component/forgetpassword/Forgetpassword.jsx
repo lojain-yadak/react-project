@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
   CircularProgress,
+  InputLabel,
 } from '@mui/material';
 import { AlternateEmail } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
@@ -54,10 +55,23 @@ function Forgetpassword() {
       sx={{ maxWidth: 400, margin: 'auto', mt: 5 }}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Typography variant="h5" align="center" gutterBottom>
+      <Typography sx={{
+        color:'#312D5F'
+      }}>
+        Step 1
+      </Typography>
+      <Typography variant="h5" gutterBottom>
         Forgot Password
       </Typography>
-
+      <Typography variant='p' sx={{
+        fw:400,
+        color:'#717171'
+      }}>
+     Please enter your email address and we’ll send you a recovery code.
+      </Typography>
+       <InputLabel htmlFor="email-input" >
+             Email Address
+         </InputLabel>
       <TextField
         {...register('email', {
           required: 'Email is required',
@@ -67,20 +81,12 @@ function Forgetpassword() {
           },
         })}
         type="email"
-        label="Email Address"
+        placeholder="Email Address"
         fullWidth
         margin="normal"
         error={!!errors.email}
         helperText={errors.email?.message}
-        slotProps={{
-          input: {
-            startAdornment: (
-              <InputAdornment position="start">
-                <AlternateEmail />
-              </InputAdornment>
-            ),
-          },
-        }}
+       
       />
 
       {error && (
@@ -100,16 +106,21 @@ function Forgetpassword() {
   variant="contained"
   fullWidth
   disabled={loading}
-  sx={{ mt: 2 }}
+  sx={{ mt: 2,textTransform:'none' }}
 >
   {loading ? <CircularProgress size={24} /> : 'Send Reset Code'}
 </Button>
 
-      <Box textAlign="center" mt={2}>
-        <Link to="/login" style={{ textDecoration: 'none' }}>
-          Back to Login
-        </Link>
-      </Box>
+   <Typography
+    variant="body2"
+    align="center"
+    sx={{ mt: 2 }}
+  >
+    Remembered your Password?{' '}
+    <Link to="/login" style={{ color: '#00B4D8', textDecoration: 'none' }}>
+      Login
+    </Link>
+  </Typography>
     </Box>
   );
 }

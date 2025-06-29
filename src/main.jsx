@@ -4,7 +4,8 @@ import './index.css'
 import App from './App.jsx'
 import {ThemeProvider} from '@emotion/react'
 import { ToastContainer, toast } from 'react-toastify';
-import ThemeContextProvider from './context/ThemeContext.jsx'
+import ThemeContextProvider from './context/ThemeContext.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 createRoot(document.getElementById('root')).render(
   <>
    <ThemeContextProvider >
