@@ -13,21 +13,48 @@ import { AlternateEmail, Password, CalendarMonth } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { Link } from 'react-router';
+import Swal from 'sweetalert2';
 
 function Register() {
   const { register, handleSubmit } = useForm();
 
   const registerUser = async (values) => {
-    try {
-      const response = await axios.post(
-        'https://mytshop.runasp.net/api/Account/register ',
-        values
-      );
-      console.log(response);
-    } catch (error) {
-      console.error('Registration error:', error);
+  try {
+    const response = await axios.post(
+      'https://mytshop.runasp.net/api/Account/register ',
+      values
+    );
+
+    console.log('Registration successful:', response.data);
+
+    // Show success alert
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: 'Your account has been successfully created.',
+      confirmButtonColor: '#4fc4ca',
+    });
+
+  } catch (error) {
+    let errorMessage = 'An unexpected error occurred.';
+
+    if (error.response) {
+      // Server responded with a status other than 2xx
+      errorMessage = error.response.data.message || 'Registration failed.';
+    } else if (error.request) {
+      // No response received
+      errorMessage = 'No response from server. Please check your internet connection.';
     }
-  };
+
+    // Show error alert
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: errorMessage,
+      confirmButtonColor: '#d33',
+    });
+  }
+};
 
   return (
     <>
