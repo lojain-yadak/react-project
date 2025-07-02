@@ -9,7 +9,7 @@ import VerifyCode from './component/verifycode/VerifyCode';
 import ResetPassword from './component/resetpassword/ResetPassword';
 import Forgetpassword from "./component/forgetpassword/Forgetpassword";
 import Product from './pages/product/Product';
-import MainLayout from "./layout/MainLayout";
+import MainLayout from "./layout/Mainlayout";
 import Checkout from "./pages/checkout/Checkout";
 import ProtectedRouter from './component/protectedrouter/ProtectedRouter';
 

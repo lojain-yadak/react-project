@@ -7,12 +7,12 @@ import CartContextProvider from '../context/CartContext';
 import { useLocation } from 'react-router';
 import Hero from '../component/hero/Hero';
 
-function MainLayout() {
+function Mainlayout() {
   const location = useLocation();
   const hiddenRoutes = ['/checkout'];
   const hideLayout = hiddenRoutes.includes(location.pathname);
 
-  // Only show Hero on the homepage
+  
   const showHero = location.pathname === '/';
 
   return (
@@ -20,7 +20,7 @@ function MainLayout() {
       <CartContextProvider>
         {!hideLayout && <Navbar />}
         
-        {/* Show Hero only on homepage */}
+       
         {showHero && <Hero />}
         
         <Container>
@@ -33,4 +33,4 @@ function MainLayout() {
   );
 }
 
-export default MainLayout;
+export default Mainlayout;
