@@ -1,4 +1,4 @@
-import { createBrowserRouter, createHashRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import Errorpage from "./pages/error/Errorpage";
 import Home from './pages/home/Home';
 import Shop from "./pages/shop/Shop";
@@ -14,70 +14,103 @@ import Checkout from "./pages/checkout/Checkout";
 import ProtectedRouter from './component/protectedrouter/ProtectedRouter';
 import Products from "./component/products/Products";
 
+// 🔥 Import Profile-related pages
+import Profile from "./pages/profile/Profile"; // Main layout with sidebar
+import Info from "./pages/profile/Info";
+import ChangePassword from "./pages/profile/Changepassword";
+import Orders from "./pages/profile/Orders";
 
 const routes = createHashRouter([
   {
-    path: '/',
+    path: "/",
     element: <MainLayout />,
     errorElement: <Errorpage />,
     children: [
       {
         index: true,
-        element: <Home />
-      },
-       {
-        path: 'home/',
-        element: <Home />
+        element: <Home />,
       },
       {
-        path: '/product/:id',
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "product/:id",
         element: <Product />,
-        viewTransition:true
+        viewTransition: true,
       },
       {
-        path: '/shop',
-        element: <Shop />
-      },{
-        path: '/checkout',
-        element:
-        <ProtectedRouter>
-          <Checkout />
-        </ProtectedRouter>
-      },
-      { 
-        path: '/cart',
-        element:
-        <ProtectedRouter>
-          <Cart />
-        </ProtectedRouter>
-         
+        path: "shop",
+        element: <Shop />,
       },
       {
-        path: '/login',
-        element: <Login />
+        path: "checkout",
+        element: (
+          <ProtectedRouter>
+            <Checkout />
+          </ProtectedRouter>
+        ),
       },
       {
-        path: '/register',
-        element: <Register />
+        path: "cart",
+        element: (
+          <ProtectedRouter>
+            <Cart />
+          </ProtectedRouter>
+        ),
       },
       {
-        path: '/forgetpassword',
-        element: <Forgetpassword />
+        path: "login",
+        element: <Login />,
       },
       {
-        path: '/verify-code',
-        element: <VerifyCode />
+        path: "register",
+        element: <Register />,
       },
       {
-        path: '/reset-password',
-        element: <ResetPassword />
+        path: "forgetpassword",
+        element: <Forgetpassword />,
       },
       {
-        path: '/products',
-        element: <Products />
-      }
-    ]
-  }
+        path: "verify-code",
+        element: <VerifyCode />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
+      },
+      {
+        path: "products",
+        element: <Products />,
+      },
+    {
+  path: "profile",
+  element: (
+    <ProtectedRouter>
+      <Profile />
+    </ProtectedRouter>
+  ),
+  children: [
+    {
+      index: true,
+      element: <Info />,
+    },
+    {
+      path: "info",
+      element: <Info />,
+    },
+    {
+      path: "change-password",
+      element: <ChangePassword />,
+    },
+    {
+      path: "orders",
+      element: <Orders />,
+    },
+  ],
+},
+    ],
+  },
 ]);
 
 export default routes;

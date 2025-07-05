@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Button from '@mui/material/Button';
 import speaker from '/public/heroimages/speaker.png'
-function DarkVariantExample() {
+function Hero() {
   const slideStyle = { backgroundColor: "#4FC4CA", color: "white" };
 
   return (
@@ -74,4 +74,4 @@ function DarkVariantExample() {
   );
 }
 
-export default DarkVariantExample;
+export default Hero;
