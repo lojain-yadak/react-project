@@ -6,6 +6,9 @@ import { Container } from '@mui/material';
 import CartContextProvider from '../context/CartContext';
 import { useLocation } from 'react-router';
 import Hero from '../component/hero/Hero';
+import Forthcmop from '../component/forthcomponent/Forthcmop';
+import Fifthcomponent from '../component/fifthcomponent/Fifthcomponent';
+import Sixcomponent from '../component/sixthcomponent/Sixcomponent';
 
 function Mainlayout() {
   const location = useLocation();
@@ -26,7 +29,9 @@ function Mainlayout() {
         <Container>
           <Outlet />
         </Container>
-
+         {showHero && <Forthcmop />}
+         {showHero && <Fifthcomponent />}
+         {showHero && <Sixcomponent />}
         {!hideLayout && <Footer />}
       </CartContextProvider>
     </>

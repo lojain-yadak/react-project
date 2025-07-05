@@ -30,7 +30,7 @@ function Login() {
         transition: Bounce,
       });
 
-      navigate('/home', {replace:true});
+      navigate('/', {replace:true});
     } catch (error) {
       toast.error('Invalid Email Or Password', {
         position: "bottom-center",

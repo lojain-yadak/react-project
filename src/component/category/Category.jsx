@@ -1,12 +1,10 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 import Loader from '../shared/loder/Loader';
 import { useQuery } from '@tanstack/react-query';
@@ -14,7 +12,7 @@ import axiosAuth from '../../api/AxiosAutontication';
 
 function Category() {
   const fetchCategories = async () => {
-    const { data } = await axiosAuth.get('/categories'); 
+    const { data } = await axiosAuth.get('/categories');
     return data;
   };
 
@@ -38,39 +36,69 @@ function Category() {
       <Typography variant="h4" gutterBottom>
         CATEGORIES
       </Typography>
-      <Grid container spacing={4}>
+
+      {/* Horizontal Scroll Container */}
+      <Box
+        sx={{
+          width: '100%',
+          overflowX: 'auto',
+          whiteSpace: 'nowrap',
+          
+           // leave space for AppBar or header if needed
+         
+          zIndex: 1000,
+          py: 1,
+          paddingLeft: '16px',
+          paddingRight: '16px',
+          display: 'flex',
+          gap: 2,
+          alignItems: 'center',
+        }}
+      >
+        {/* Map categories horizontally */}
         {data.map((category) => (
-          <Grid
-            item
-            xs={12}
-            md={4}
-            sm={6}
-            lg={4}
-            xl={3}
+          <Box
             key={category.id}
+            sx={{
+              display: 'inline-flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              minWidth: '160px',
+              textAlign: 'center',
+            }}
           >
-            <Card sx={{ maxWidth: 345 }}>
+            <Card
+              sx={{
+                borderRadius: '50%',
+                boxShadow: 3,
+                mb: 1,
+              }}
+            >
               <CardMedia
-                sx={{ height: 140 }}
                 component="img"
                 image={category.mainImg}
+                src='./public/forthcompimages/laptops.jpg'
                 alt={category.description || 'Category image'}
+                sx={{
+                  width: '100px',
+                  height: '100px',
+                  objectFit: 'cover',
+                  padding: '10px',
+                   bgcolor: '#E6E3FF',
+                   
+                }}
               />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {category.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over 6,000 species.
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Learn More</Button>
-              </CardActions>
             </Card>
-          </Grid>
+            <Typography
+              variant="subtitle2"
+              color="textPrimary"
+              sx={{ color: 'white', mt: 1 }}
+            >
+              {category.name}
+            </Typography>
+          </Box>
         ))}
-      </Grid>
+      </Box>
     </>
   );
 }

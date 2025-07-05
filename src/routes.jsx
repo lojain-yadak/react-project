@@ -12,6 +12,7 @@ import Product from './pages/product/Product';
 import MainLayout from "./layout/Mainlayout";
 import Checkout from "./pages/checkout/Checkout";
 import ProtectedRouter from './component/protectedrouter/ProtectedRouter';
+import Products from "./component/products/Products";
 
 
 const routes = createHashRouter([
@@ -70,6 +71,10 @@ const routes = createHashRouter([
       {
         path: '/reset-password',
         element: <ResetPassword />
+      },
+      {
+        path: '/products',
+        element: <Products />
       }
     ]
   }
