@@ -3,7 +3,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Button from '@mui/material/Button';
-
+import speaker from '/public/heroimages/speaker.png'
 function DarkVariantExample() {
   const slideStyle = { backgroundColor: "#4FC4CA", color: "white" };
 
@@ -25,7 +25,7 @@ function DarkVariantExample() {
             <div className="w-50">
               <img
                 className="d-block w-0 rounded"
-                src="./public/heroimages/speaker.png"
+                src={speaker}
                 alt="First slide"
               />
             </div>
@@ -44,7 +44,7 @@ function DarkVariantExample() {
             <div className="w-50">
               <img
                 className="d-block w-0 rounded"
-                src="./public/heroimages/speaker.png"
+                src={speaker}
                 alt="Second slide"
               />
             </div>
@@ -63,7 +63,7 @@ function DarkVariantExample() {
             <div className="w-50">
               <img
                 className="d-block w-0 rounded"
-                src="./public/heroimages/speaker.png"
+                src={speaker}
                 alt="Third slide"
               />
             </div>

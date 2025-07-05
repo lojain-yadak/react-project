@@ -4,7 +4,7 @@ import { Bounce, toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-
+import background from '/public/forthcompimages/Ellipse 13.png'
 function Sixcomponent() {
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onChange' });
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ function Sixcomponent() {
   className="d-flex flex-column justify-content-center align-items-center" 
   sx={{ py: 5 }} 
   style={{
-    backgroundImage: "url('./public/forthcompimages/Ellipse 13.png')",
+    backgroundImage: `url(${background})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     width: '100%',

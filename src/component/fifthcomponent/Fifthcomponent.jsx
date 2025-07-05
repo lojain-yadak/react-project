@@ -1,7 +1,8 @@
 import { Box } from '@mui/joy'
 import React from 'react'
 import { Button, Card, Typography } from '@mui/material';
-
+import applewatch from '/public/forthcompimages/Rectangle 64.png'
+import airpods from '/public/forthcompimages/Rectangle 64 (1).png'
 function Fifthcomponent() {
   return (
     <>
@@ -16,7 +17,7 @@ function Fifthcomponent() {
       <Button style={{ backgroundColor: 'white', color: '#121212', borderRadius: '12px' }}>Buy Now</Button>
     </Box>
     <Typography component="img"
-      src='./public/forthcompimages/Rectangle 64.png'
+      src={applewatch}
       alt='smart watch'
       className="w-50 w-md-25"
     />
@@ -31,7 +32,7 @@ function Fifthcomponent() {
       <Button style={{ backgroundColor: 'white', color: '#121212', borderRadius: '12px' }}>Buy Now</Button>
     </Box>
     <Typography component="img"
-      src='./public/forthcompimages/Rectangle 64 (1).png'
+      src={airpods}
       alt='airpods'
       className="w-50 w-md-25"
     />

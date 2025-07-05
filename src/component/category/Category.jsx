@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
+import laptops from '/public/forthcompimages/laptops.jpg'
 import Loader from '../shared/loder/Loader';
 import { useQuery } from '@tanstack/react-query';
 import axiosAuth from '../../api/AxiosAutontication';
@@ -77,7 +77,7 @@ function Category() {
               <CardMedia
                 component="img"
                 image={category.mainImg}
-                src='./public/forthcompimages/laptops.jpg'
+                src={laptops}
                 alt={category.description || 'Category image'}
                 sx={{
                   width: '100px',
@@ -85,7 +85,7 @@ function Category() {
                   objectFit: 'cover',
                   padding: '10px',
                    bgcolor: '#E6E3FF',
-                   
+
                 }}
               />
             </Card>
