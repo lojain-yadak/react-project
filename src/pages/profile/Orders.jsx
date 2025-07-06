@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,57 +11,45 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
+import { useQuery } from '@tanstack/react-query';
+
+// Assume this is already configured with base URL and auth header
+import axiosAuth from '../../api/AxiosAutontication'; // Check if this file exists
 
 export default function Orders() {
-  const [orders, setOrders] = useState([]);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
-  const [orderDetails, setOrderDetails] = useState(null);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    async function fetchOrders() {
-      try {
-        const token = localStorage.getItem('userToken');
-        const res = await axios.get('https://mytshop.runasp.net/api/Orders', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  // Fetch all orders
+  const {
+    data: orders = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['orders'],
+    queryFn: async () => {
+      const res = await axiosAuth.get('/Orders');
+      console.log(res.data); // Log the raw response
+      return res.data.map(order => ({
+        ...order,
+        orderDate: new Date(order.orderDate), // Convert to Date object
+      }));
+    },
+  });
 
-        // Validate and transform the data
-        const validatedOrders = res.data.map((order) => ({
-          ...order,
-          date: new Date(order.date), // Convert to Date object
-        }));
-
-        setOrders(validatedOrders);
-      } catch (err) {
-        console.error("Error fetching orders:", err);
-      }
-    }
-
-    fetchOrders();
-  }, []);
-
-  useEffect(() => {
-    if (selectedOrderId) {
-      async function fetchOrderDetails() {
-        try {
-          const token = localStorage.getItem('userToken');
-          const res = await axios.get(`https://mytshop.runasp.net/api/Orders/${selectedOrderId}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setOrderDetails(res.data);
-        } catch (err) {
-          console.error("Error fetching order details:", err);
-        }
-      }
-
-      fetchOrderDetails();
-    }
-  }, [selectedOrderId]);
+  // Fetch order details if ID is selected
+  const {
+    data: orderDetails = null,
+    isLoading: loadingDetails,
+  } = useQuery({
+    queryKey: ['order', selectedOrderId],
+    queryFn: async () => {
+      const res = await axiosAuth.get(`/Orders/${selectedOrderId}`);
+      return res.data;
+    },
+    enabled: !!selectedOrderId,
+  });
 
   const handleOpen = (orderId) => {
     setSelectedOrderId(orderId);
@@ -71,8 +59,10 @@ export default function Orders() {
   const handleClose = () => {
     setOpen(false);
     setSelectedOrderId(null);
-    setOrderDetails(null);
   };
+
+  if (isLoading) return <div>Loading orders...</div>;
+  if (isError) return <div>Error fetching orders: {error.message}</div>;
 
   return (
     <>
@@ -86,37 +76,45 @@ export default function Orders() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>
-                  {order.date instanceof Date && !isNaN(order.date)
-                    ? order.date.toLocaleDateString()
-                    : "No Date Available"}
-                </TableCell>
-                <TableCell>{order.status}</TableCell>
-                <TableCell align="right">
-                  <Button onClick={() => handleOpen(order.id)}>View</Button>
+            {orders.length > 0 ? (
+              orders.map((order) => (
+                <TableRow key={order.id}>
+                  <TableCell>
+                    {order.orderDate instanceof Date && !isNaN(order.orderDate)
+                      ? order.orderDate.toLocaleDateString()
+                      : "No Date Available"}
+                  </TableCell>
+                  <TableCell>{order.orderStatus}</TableCell> {/* Use orderStatus */}
+                  <TableCell align="right">
+                    <Button onClick={() => handleOpen(order.id)}>View</Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} align="center">
+                  No orders found.
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
 
+      {/* Order Details Modal */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Order Details</DialogTitle>
         <DialogContent>
-          {orderDetails && (
+          {loadingDetails ? (
+            <p>Loading details...</p>
+          ) : orderDetails ? (
             <div>
-              <p><strong>Status:</strong> {orderDetails.status}</p>
-              <p><strong>Total:</strong> ${orderDetails.total}</p>
-              <p><strong>Items:</strong></p>
-              <ul>
-                {orderDetails.items.map(item => (
-                  <li key={item.id}>{item.name} x {item.quantity}</li>
-                ))}
-              </ul>
+              <p><strong>Status: </strong> {orderDetails.orderStatus}</p> {/* Use orderStatus */}
+              <p><strong>Total: </strong> ${orderDetails.totalPrice.toFixed(2)}</p> {/* Use totalPrice */}
+              <p><strong>payment method: </strong>${orderDetails.paymentMethodType}</p>
             </div>
+          ) : (
+            <p>No details available.</p>
           )}
         </DialogContent>
         <Button onClick={handleClose}>Close</Button>
