@@ -29,7 +29,7 @@ export default function Info() {
             Authorization: `Bearer ${token}`,
           },
         });
-
+          console.log(res.data);
         setUser(res.data);
       } catch (err) {
         console.error('Error fetching user data:', err);
@@ -74,9 +74,12 @@ export default function Info() {
         <Typography variant="h5" gutterBottom>
           User Info
         </Typography>
+         <Typography><strong>First Name: </strong> {user.firstName}</Typography>
+        <Typography><strong>Last Name: </strong> {user.lastName}</Typography>
         <Typography><strong>Name:</strong> {user.userName}</Typography>
         <Typography><strong>Email:</strong> {user.email}</Typography>
-       
+        <Typography><strong>Date of Birth:</strong> {user.birthOfDate}</Typography>
+        <Typography><strong>Gender: </strong> {user.gender}</Typography>
       </CardContent>
     </Card>
   );
