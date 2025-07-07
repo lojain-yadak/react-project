@@ -19,6 +19,7 @@ import Profile from "./pages/profile/Profile"; // Main layout with sidebar
 import Info from "./pages/profile/Info";
 import ChangePassword from "./pages/profile/Changepassword";
 import Orders from "./pages/profile/Orders";
+import CategoryProducts from "./pages/productbycategory/CategoryProducts";
 
 const routes = createHashRouter([
   {
@@ -82,6 +83,10 @@ const routes = createHashRouter([
       {
         path: "products",
         element: <Products />,
+      },
+      {
+        path: "category/:categoryId/products", // ✅ New route added
+        element: <CategoryProducts />,
       },
     {
   path: "profile",

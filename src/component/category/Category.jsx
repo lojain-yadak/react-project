@@ -5,10 +5,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import laptops from '/public/forthcompimages/laptops.jpg'
+import laptops from '/public/forthcompimages/laptops.jpg';
 import Loader from '../shared/loder/Loader';
 import { useQuery } from '@tanstack/react-query';
 import axiosAuth from '../../api/AxiosAutontication';
+import { Link } from 'react-router-dom'; // 👈 Import Link
 
 function Category() {
   const fetchCategories = async () => {
@@ -43,9 +44,6 @@ function Category() {
           width: '100%',
           overflowX: 'auto',
           whiteSpace: 'nowrap',
-          
-           // leave space for AppBar or header if needed
-         
           zIndex: 1000,
           py: 1,
           paddingLeft: '16px',
@@ -57,46 +55,49 @@ function Category() {
       >
         {/* Map categories horizontally */}
         {data.map((category) => (
-          <Box
+          <Link
             key={category.id}
-            sx={{
-              display: 'inline-flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              minWidth: '160px',
-              textAlign: 'center',
-            }}
+            to={`/category/${category.id}/products`} // 👈 Navigate to product list
+            style={{ textDecoration: 'none', color: 'inherit' }}
           >
-            <Card
+            <Box
               sx={{
-                borderRadius: '50%',
-                boxShadow: 3,
-                mb: 1,
+                display: 'inline-flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                minWidth: '160px',
+                textAlign: 'center',
               }}
             >
-              <CardMedia
-                component="img"
-                image={category.mainImg}
-                src={laptops}
-                alt={category.description || 'Category image'}
+              <Card
                 sx={{
-                  width: '100px',
-                  height: '100px',
-                  objectFit: 'cover',
-                  padding: '10px',
-                   bgcolor: '#E6E3FF',
-
+                  borderRadius: '50%',
+                  boxShadow: 3,
+                  mb: 1,
                 }}
-              />
-            </Card>
-            <Typography
-              variant="subtitle2"
-              color="textPrimary"
-              sx={{ color: 'white', mt: 1 }}
-            >
-              {category.name}
-            </Typography>
-          </Box>
+              >
+                <CardMedia
+                  component="img"
+                  image={category.mainImg || laptops}
+                  alt={category.description || 'Category image'}
+                  sx={{
+                    width: '100px',
+                    height: '100px',
+                    objectFit: 'cover',
+                    padding: '10px',
+                    bgcolor: '#E6E3FF',
+                  }}
+                />
+              </Card>
+              <Typography
+                variant="subtitle2"
+                color="textPrimary"
+                sx={{ color: 'white', mt: 1 }}
+              >
+                {category.name}
+              </Typography>
+            </Box>
+          </Link>
         ))}
       </Box>
     </>
