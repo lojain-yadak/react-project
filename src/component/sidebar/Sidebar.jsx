@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 export default function Sidebar() {
   return (
     <List>
-      <ListItem button component={Link} to="info">
+      <ListItem button component={Link} to="/profile/info">
         <ListItemText primary="Info" />
       </ListItem>
       <ListItem button component={Link} to="change-password">

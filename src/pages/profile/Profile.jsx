@@ -1,6 +1,5 @@
-// /src/pages/profile/Profile.js
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
@@ -19,20 +18,25 @@ export default function Profile() {
           >
             <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
               <li>
-                <a href="/profile/info">Info</a>
+                <Link to="/profile/info" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  Info
+                </Link>
               </li>
               <li>
-                <a href="/profile/change-password">Change Password</a>
+                <Link to="/profile/change-password" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  Change Password
+                </Link>
               </li>
               <li>
-                <a href="/profile/orders">Orders</a>
+                <Link to="/profile/orders" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  Orders
+                </Link>
               </li>
             </ul>
           </Box>
         </Grid>
 
         <Grid item xs={12} sm={8} md={9}>
-          {/* Content Area */}
           <Outlet />
         </Grid>
       </Grid>

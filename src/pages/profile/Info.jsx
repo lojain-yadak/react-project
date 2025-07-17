@@ -34,7 +34,6 @@ export default function Info() {
       } catch (err) {
         console.error('Error fetching user data:', err);
 
-        // If unauthorized or forbidden, redirect to login
         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
           localStorage.removeItem('userToken');
           navigate('/login');

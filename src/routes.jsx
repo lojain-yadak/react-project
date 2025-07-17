@@ -13,9 +13,7 @@ import MainLayout from "./layout/Mainlayout";
 import Checkout from "./pages/checkout/Checkout";
 import ProtectedRouter from './component/protectedrouter/ProtectedRouter';
 import Products from "./component/products/Products";
-
-// 🔥 Import Profile-related pages
-import Profile from "./pages/profile/Profile"; // Main layout with sidebar
+import Profile from "./pages/profile/Profile"; 
 import Info from "./pages/profile/Info";
 import ChangePassword from "./pages/profile/Changepassword";
 import Orders from "./pages/profile/Orders";
@@ -29,10 +27,6 @@ const routes = createHashRouter([
     children: [
       {
         index: true,
-        element: <Home />,
-      },
-      {
-        path: "/home",
         element: <Home />,
       },
       {
@@ -85,37 +79,36 @@ const routes = createHashRouter([
         element: <Products />,
       },
       {
-        path: "category/:categoryId/products", // ✅ New route added
+        path: "category/:categoryId/products",
         element: <CategoryProducts />,
       },
-    {
-  path: "profile",
-  element: (
-    <ProtectedRouter>
-      <Profile />
-    </ProtectedRouter>
-  ),
-  children: [
-    {
-      index: true,
-      element: <Info />,
-    },
-    {
-      path: "info",
-      element: <Info />,
-    },
-    {
-      path: "change-password",
-      element: <ChangePassword />,
-    },
-    {
-      path: "orders",
-      element: <Orders />,
-    },
-  ],
-},
+      {
+        path: "profile",
+        element: (
+          <ProtectedRouter>
+            <Profile />
+          </ProtectedRouter>
+        ),
+        children: [
+          {
+            index: true,
+            element: <Info />,
+          },
+          {
+            path: "info",
+            element: <Info />,
+          },
+          {
+            path: "change-password",
+            element: <ChangePassword />,
+          },
+          {
+            path: "orders",
+            element: <Orders />,
+          },
+        ],
+      },
     ],
   },
 ]);
-
 export default routes;

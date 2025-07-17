@@ -32,7 +32,7 @@ function Navbar() {
   const { mode, toggleTheme } = React.useContext(ThemeContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [drawerOpen, setDrawerOpen] = React.useState(false); // For right-side drawer
+  const [drawerOpen, setDrawerOpen] = React.useState(false); 
   const navigate = useNavigate();
   const isLogedIn = Boolean(localStorage.getItem("userToken"));
 
